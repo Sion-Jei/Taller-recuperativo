@@ -55,11 +55,10 @@ auto linearRegression(std::map<double, double> m) {
     std::cout << "y = " << b << "x " << a;
 }
 
-auto csv_smi(std::string path) {
+auto csv_smi(char** argv) {
     std::map<double, double> map_tmp;
-    std::string file_path = path;
     std::ifstream csv;
-    csv.open(file_path);
+    csv.open(argv[1]);
     std::string line;
     getline(csv, line);
     while (csv.peek() != EOF) {        
@@ -78,11 +77,10 @@ auto csv_smi(std::string path) {
     return map_tmp;
 }
 
-auto csv_dollars(std::string path) {
+auto csv_dollars(char** argv) {
     std::map<std::string, double> map_tmp;
-    std::string file_path = path;
     std::ifstream csv;
-    csv.open(file_path);
+    csv.open(argv[2]);
     std::string line;
     getline(csv, line); // Omite la primera linea de descripcion
     while (csv.peek() != EOF) { //Revisa si ha terminado de leer el archivo
@@ -99,10 +97,10 @@ auto csv_dollars(std::string path) {
     csv.close();
     return map_tmp;    
 }
-int main() {
+int main(int argc, char** argv) {
 
-    smi = csv_smi("smi.csv");
-    dollars = csv_dollars("dollars.csv");
+    smi = csv_smi(argv);
+    dollars = csv_dollars(argv);
     cash = convertYear(smi, dollars);
     linearRegression(cash);
 
